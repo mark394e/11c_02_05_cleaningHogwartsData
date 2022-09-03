@@ -45,14 +45,6 @@ function prepareStudents(studentList) {
     // defining the firstname property. capitalises the first letter in the first name and lowering the rest
     student.firstname = fullName.substring(0, 1).toUpperCase() + fullName.substring(1, fullName.indexOf(" ")).toLowerCase();
 
-    // if the fullName includes " then define the word betwen the two " as a nickname as well as capitalising it
-    // as well as defining the nickname property
-    if (fullName.includes(`"`)) {
-      student.nickname = fullName.substring(fullName.indexOf(`"`) + 1, fullName.indexOf(`"`) + 2).toUpperCase() + fullName.substring(fullName.indexOf(`"`) + 2, fullName.lastIndexOf(`"`)).toLowerCase();
-      // removing the name from the middelname because its a nickname
-      student.middelname = "";
-    }
-
     // if the fullName does not include a space then capitalise the first letter in the name and lower the rest
     if (fullName.includes(" ") === false) {
       student.firstname = fullName.substring(0, 1).toUpperCase() + fullName.substring(1).toLowerCase();
@@ -60,6 +52,14 @@ function prepareStudents(studentList) {
 
     // defining the middelname property. trimming the middelname and capitalising the first letter and lowering the rest
     student.middelname = fullName.substring(fullName.indexOf(" "), fullName.lastIndexOf(" ")).trim().substring(0, 1).toUpperCase() + fullName.substring(fullName.indexOf(" "), fullName.lastIndexOf(" ")).trim().substring(1).toLowerCase();
+
+    // if the fullName includes " then define the word betwen the two " as a nickname as well as capitalising it
+    // as well as defining the nickname property
+    if (fullName.includes(`"`)) {
+      student.nickname = fullName.substring(fullName.indexOf(`"`) + 1, fullName.indexOf(`"`) + 2).toUpperCase() + fullName.substring(fullName.indexOf(`"`) + 2, fullName.lastIndexOf(`"`)).toLowerCase();
+      // removing the name from the middelname because its a nickname
+      student.middelname = "";
+    }
 
     // defining the lastname property. capitalising the first letter in lastname and lowering the rest
     student.lastname = fullName.substring(fullName.lastIndexOf(" ") + 1, fullName.lastIndexOf(" ") + 2).toUpperCase() + fullName.substring(fullName.lastIndexOf(" ") + 2).toLowerCase();

@@ -46,6 +46,9 @@ function prepareData(studentList) {
       student.middelname = "";
     }
 
-    console.log(student.nickname);
+    student.gender = gender.substring(0, 1).toUpperCase() + gender.substring(1).toLowerCase();
+    student.house = house.substring(0, 1).toUpperCase() + house.substring(1).toLowerCase();
+
+    console.log(student.gender);
   });
 }

@@ -70,6 +70,14 @@ function prepareStudents(studentList) {
     // defining the house property. capitalising the first letter in gender and lowering the rest
     student.house = house.substring(0, 1).toUpperCase() + house.substring(1).toLowerCase();
 
+    // defining the image property. concatenating the last name in lower case with an underscore and the first letter in the first name in lower case with ".png"
+    student.image = fullName.substring(fullName.lastIndexOf(" ")).trim().toLowerCase() + "_" + fullName.substring(0, 1).toLowerCase() + ".png";
+
+    // if the fullName includes a hyphen then lower the letters in the last name after the hyphen and add the underscore, first letter of first name in lower case and ".png"
+    if (fullName.includes("-")) {
+      student.image = fullName.substring(fullName.lastIndexOf("-") + 1).toLowerCase() + "_" + fullName.substring(0, 1).toLowerCase() + ".png";
+    }
+
     // adding all the student-objects to the student array
     studentArray.push(student);
   });

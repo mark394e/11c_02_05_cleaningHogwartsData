@@ -8,28 +8,28 @@ const JSONArray = "https://petlatkea.dk/2021/hogwarts/students.json";
 
 const Student = {
   firstname: "",
-  lastname: "",
-  middelname: "",
   nickname: "",
+  middelname: "",
+  lastname: "",
   gender: "",
-  image: ".jpg",
   house: "",
+  image: ".jpg",
 };
 
 async function init() {
   console.log("ready");
 
-  loadData();
+  loadStudents();
 }
 
-async function loadData() {
+async function loadStudents() {
   const response = await fetch(JSONArray);
   const studentList = await response.json();
   console.table(studentList);
-  prepareData(studentList);
+  prepareStudents(studentList);
 }
 
-function prepareData(studentList) {
+function prepareStudents(studentList) {
   studentList.forEach((elm) => {
     const student = Object.create(Student);
 
@@ -38,17 +38,29 @@ function prepareData(studentList) {
     let gender = elm.gender.trim();
 
     student.firstname = fullName.substring(0, 1).toUpperCase() + fullName.substring(1, fullName.indexOf(" ")).toLowerCase();
-    student.lastname = fullName.substring(fullName.lastIndexOf(" ") + 1, fullName.lastIndexOf(" ") + 2).toUpperCase() + fullName.substring(fullName.lastIndexOf(" ") + 2).toLowerCase();
-    student.middelname = fullName.substring(fullName.indexOf(" "), fullName.lastIndexOf(" ")).trim().substring(0, 1).toUpperCase() + fullName.substring(fullName.indexOf(" "), fullName.lastIndexOf(" ")).trim().substring(1).toLowerCase();
 
     if (fullName.includes(`"`)) {
       student.nickname = fullName.substring(fullName.indexOf(`"`) + 1, fullName.indexOf(`"`) + 2).toUpperCase() + fullName.substring(fullName.indexOf(`"`) + 2, fullName.lastIndexOf(`"`)).toLowerCase();
       student.middelname = "";
+      console.log(student.middelname);
     }
+
+    if (fullName.includes(" ") === false) {
+      student.firstname = fullName.substring(0, 1).toUpperCase() + fullName.substring(1).toLowerCase();
+    }
+
+    student.middelname = fullName.substring(fullName.indexOf(" "), fullName.lastIndexOf(" ")).trim().substring(0, 1).toUpperCase() + fullName.substring(fullName.indexOf(" "), fullName.lastIndexOf(" ")).trim().substring(1).toLowerCase();
+    student.lastname = fullName.substring(fullName.lastIndexOf(" ") + 1, fullName.lastIndexOf(" ") + 2).toUpperCase() + fullName.substring(fullName.lastIndexOf(" ") + 2).toLowerCase();
 
     student.gender = gender.substring(0, 1).toUpperCase() + gender.substring(1).toLowerCase();
     student.house = house.substring(0, 1).toUpperCase() + house.substring(1).toLowerCase();
 
-    console.log(student.gender);
+    studentArray.push(student);
   });
+
+  showAllStudents();
+}
+
+function showAllStudents() {
+  console.table(studentArray);
 }
